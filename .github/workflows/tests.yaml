@@ -1,0 +1,26 @@
+name: PyTest
+on: [push, workflow_dispatch]
+
+jobs:
+  test:
+    name: Test python scripts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+      - name: Install Python dependencies
+        run: |
+          sudo apt install -y mupdf-tools poppler-utils
+          python3 -m pip install --upgrade pip
+          pip3 install pytest pytest-cov pytest-github-actions-annotate-failures jupyter numpy matplotlib
+      - name: Test with pytest
+        run: |
+          jupyter nbconvert --to script --output "jupyter_assignment_dirty" jupyter_assignment.ipynb
+          jupyter nbconvert --to script matplotlib_assignment.ipynb
+          cat jupyter_assignment_dirty.py | grep -v "^#" | grep -v "^$" | grep -v "get_ipython()" | grep -vE "(\s|=|^)input\(" > jupyter_assignment.py
+          pytest -s jupyter_tests.py
