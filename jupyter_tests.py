@@ -13,34 +13,34 @@ score = 0.0
 def test_read_introduction():
     global score
     assert READ_INTRODUCTION == True, "Please, read the instruction!"
-    score += 0.1
+    score += 0.05
     # print(f"Score is {score}")
 
 
 def test_learn_jupyter():
     global score
     assert LEARNED_ABOUT_JUPYTER == True, "Please, learn about Jupyter!"
-    score += 0.1
+    score += 0.05
     # print(f"Score is {score}")
 
 
 def test_access_colaboratory():
     global score
     assert ACCESS_COLABORATORY == True, "Please, configure Google Colab!"
-    score += 0.1
+    score += 0.05
 
 
 def test_create_github():
     global score
     assert CREATED_GITHUB_ACCOUNT == True, "Please, create a GitHub Account!"
-    score += 0.1
+    score += 0.05
     
 
 def test_greet():
     global score
     assert greet(my_name) == f"Hello, {my_name}!"
     assert greet("Test User") == "Hello, Test User!"
-    score += 0.6
+    score += 0.2
 
 
 def test_github():
@@ -77,13 +77,13 @@ def cleanup(request):
     def print_score():
         global score
         if greet(3.14) == "Hello, 3.14!" and greet(42) == "Hello, 42!":
-            score += 0.15
+            score += 0.1
         if greet(['Alice']) == "Hello, Alice!":
-            score += 0.15
+            score += 0.1
         if greet(['Alice', 'Bob', 'Charlie']) == "Hello, Alice, Bob and Charlie!":
-            score += 0.3
+            score += 0.2
         if greet(['Alice', 3.14, {'key'}]) == "Hello, Alice, 3.14 and {'key'}!":
-            score += 0.4
+            score += 0.2
         print(f"\nScore is {score}")
     request.addfinalizer(print_score)
 # def pytest_report_header(config):
