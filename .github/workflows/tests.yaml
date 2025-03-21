@@ -17,10 +17,11 @@ jobs:
         run: |
           sudo apt install -y mupdf-tools poppler-utils
           python3 -m pip install --upgrade pip
-          pip3 install pytest pytest-cov pytest-github-actions-annotate-failures jupyter numpy matplotlib
+          pip3 install pytest pytest-cov pytest-github-actions-annotate-failures jupyter numpy matplotlib pandas
       - name: Test with pytest
         run: |
           jupyter nbconvert --to script --output "jupyter_assignment_dirty" jupyter_assignment.ipynb
           jupyter nbconvert --to script matplotlib_assignment.ipynb
+          jupyter nbconvert --to script pandas_assignment.ipynb
           cat jupyter_assignment_dirty.py | grep -v "^#" | grep -v "^$" | grep -v "get_ipython()" | grep -vE "(\s|=|^)input\(" > jupyter_assignment.py
           pytest -s jupyter_tests.py

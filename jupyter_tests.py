@@ -2,7 +2,9 @@ import pytest
 
 from jupyter_assignment import READ_INTRODUCTION, LEARNED_ABOUT_JUPYTER, ACCESS_COLABORATORY, CREATED_GITHUB_ACCOUNT, github_username, my_name, greet
 
-from matplotlib_assignment import Student_ID, task_id, my_function
+from matplotlib_assignment import Student_ID, task_id, my_function, dot_product
+
+# from pandas_assignment import dataset_id, columns, answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8
 
 import os
 
@@ -14,14 +16,12 @@ def test_read_introduction():
     global score
     assert READ_INTRODUCTION == True, "Please, read the instruction!"
     score += 0.05
-    # print(f"Score is {score}")
 
 
 def test_learn_jupyter():
     global score
     assert LEARNED_ABOUT_JUPYTER == True, "Please, learn about Jupyter!"
     score += 0.05
-    # print(f"Score is {score}")
 
 
 def test_access_colaboratory():
@@ -69,7 +69,39 @@ def test_maths():
         elif task_id == 2:
             assert math.isclose(my_function(np.array([0]),2,2,0,0), 0)
             assert math.isclose(my_function(np.array([0]),2,2,0,-10), 0)
+
+
+def test_dot_product():
+    answers = [
+        13550, 16870, 8137, 13145, 14620, 8880, 5371, 15377, 3292, 13487, 8604, 7911, 11224, 20706, 
+        11852, 8611, 5489, 14160, 18076, 15480, 11748, 11954, 15400, 17489, 14071, 10334, 12960, 
+        13837, 6484, 4829, 13419, 9578, 16590, 18355, 10887, 18960, 10665, 12946, 20941, 14179, 11574
+    ]
+    assert dot_product == answers[Student_ID], "Invalid value of dot product!"
     
+
+# def test_dataset_id():
+#     if Student_ID is not None:
+#         assert dataset_id >= 0 and task_id < 3, "Invalid dataset ID!"
+
+
+# def test_columns():
+#     from collections.abc import Iterable
+#     assert isinstance(columns, Iterable)
+#     for col in columns:
+#         assert isinstance(col, str), f"Column {col} has invalid type!"
+#         assert col.islower()
+
+
+# def test_answers():
+#     assert answer1 not in [None, ...]
+#     assert answer2 not in [None, ...]
+#     assert answer3 not in [None, ...]
+#     assert answer4 not in [None, ...]
+#     assert answer5 not in [None, ...]
+#     assert answer6 not in [None, ...]
+#     assert answer7 not in [None, ...]
+#     assert answer8 not in [None, ...]
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -85,8 +117,5 @@ def cleanup(request):
         if greet(['Alice', 3.14, {'key'}]) == "Hello, Alice, 3.14 and {'key'}!":
             score += 0.2
         print(f"\nScore is {score}")
+        print(f"TASKID is {Student_ID}")
     request.addfinalizer(print_score)
-# def pytest_report_header(config):
-#     return f"Score is {score}"
-    
-# print(f"Score is {score}")
